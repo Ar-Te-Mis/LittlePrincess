@@ -15,7 +15,7 @@ async def on_ready():  # When the bot is ready
 
 
 extensions = [
-	'cogs.commandmain'  # Same name as it would be if you were importing it
+	'cogs.commandmain','cogs.raidupdate'  # Same name as it would be if you were importing it
 ]
 
 if __name__ == '__main__':  # Ensures this is the file being ran
