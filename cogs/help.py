@@ -1,6 +1,8 @@
 from simple import ResOCRToJson as res
 import discord
 from discord.ext import commands
+import logging
+logging.getLogger("discord").setLevel(logging.ERROR)
 from paddleocr import PaddleOCR, draw_ocr
 
 

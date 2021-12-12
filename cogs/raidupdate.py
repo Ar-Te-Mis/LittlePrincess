@@ -2,16 +2,19 @@ from discord import client
 from simple import ResOCRToJson as res
 import discord
 from discord.ext import commands
+import json
 from paddleocr import PaddleOCR, draw_ocr
-from simple import Data
 
 def OCRImage(imageLink,ServerID):
-        ocr = PaddleOCR(use_angle_cls=True, lang="en") #define ocr
+        ocr = PaddleOCR(use_angle_cls=True, lang="en", ocr_version = 'PP-OCR') #define ocr
         text = ocr.ocr(imageLink,cls=True) #buat download attachment ke tmp.jpg
         #result = ocr.ocr("tmp.jpg", cls=True) #OCR tmp.jpg
         res(ServerID)
 
         return "Done"
+
+def previewEmbed():
+    return None
 
 
 class OCRcommands(commands.Cog, name ="OCRs Commands"):
@@ -20,6 +23,8 @@ class OCRcommands(commands.Cog, name ="OCRs Commands"):
 
     @commands.command(name="preview", aliases =['hi'])
     async def preview(self, ctx):
+        with open("DB/raid.json","r") as f:
+            Data = json.load(f)
         if str(ctx.guild.id) not in Data:
             embeds=discord.Embed()
             embeds.colour = 0x725E7A

@@ -1,15 +1,26 @@
 #Make Simple :3
-
 from paddleocr import PaddleOCR, draw_ocr
 import os
 import json
 from PIL import Image
+import sys
 
-f=open("DB/raid.json") ; Data = json.load(f)
+#--Optional Functions!!--#
+def blockPrint(): #Disable LOG from my module
+    sys.stdout = open(os.devnull, 'w')
+def enablePrint(): #Enable LOG from my module
+    sys.stdout = sys.__stdout__
+blockPrint() #Used to block print from paddleocr start
+#------------------------#
 
-ocr = PaddleOCR(use_angle_cls=True, lang="en")
+
+
+ocr = PaddleOCR(use_angle_cls=True, lang="en", ocr_version = 'PP-OCR')
 
 def ResOCRToJson(Server):
+    with open("DB/raid.json","r") as f:
+        Data = json.load(f)
+
     Server = str(Server)
     
     result = ocr.ocr("tmp.jpg", cls=True) #read tmp.jpg
