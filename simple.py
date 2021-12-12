@@ -5,12 +5,13 @@ import os
 import json
 from PIL import Image
 
+f=open("DB/raid.json") ; Data = json.load(f)
 
 ocr = PaddleOCR(use_angle_cls=True, lang="en")
 
 def ResOCRToJson(Server):
     Server = str(Server)
-    f=open("DB/raid.json") ; Data = json.load(f)
+    
     result = ocr.ocr("tmp.jpg", cls=True) #read tmp.jpg
     
     #If New
@@ -43,6 +44,7 @@ def ResOCRToJson(Server):
                 b=a
             else:
                 a = a.replace(".","") #replace . to none cuz of 1.232.534 is illegal to tramform to int
+                print(b,a)
                 
                 user_raid[b]=(int(a),int(c)) #updating dictionary [0] = raid dmg, [1] = raid attempt
     Data[Server] = user_raid

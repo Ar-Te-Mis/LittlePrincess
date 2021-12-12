@@ -1,8 +1,9 @@
+from discord import client
 from simple import ResOCRToJson as res
 import discord
 from discord.ext import commands
 from paddleocr import PaddleOCR, draw_ocr
-
+from simple import Data
 
 def OCRImage(imageLink,ServerID):
         ocr = PaddleOCR(use_angle_cls=True, lang="en") #define ocr
@@ -17,7 +18,21 @@ class OCRcommands(commands.Cog, name ="OCRs Commands"):
     def __init__(self,bot):
         self.bot = bot
 
-    
+    @commands.command(name="preview", aliases =['hi'])
+    async def preview(self, ctx):
+        if str(ctx.guild.id) not in Data:
+            embeds=discord.Embed()
+            embeds.colour = 0x725E7A
+            embeds.set_author(name="Sorry, I couldn't find any server records from this server")
+            embeds.add_field(name="Status : ", value='Error', inline=True)
+            await ctx.channel.send(embed=embeds)
+        else:
+            embeds=discord.Embed()
+            embeds.colour = 0x725E7A
+            embeds.set_author(name="Work")
+            embeds.add_field(name="Status : ", value='Work', inline=True)
+            await ctx.channel.send(embed=embeds)
+            await ctx.author.send('Work')
 
     @commands.command(name="update", aliases=['upd']) 
     async def ocr(self, message):
