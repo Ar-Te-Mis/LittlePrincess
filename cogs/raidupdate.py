@@ -32,13 +32,17 @@ class OCRcommands(commands.Cog, name ="OCRs Commands"):
             embeds.add_field(name="Status : ", value='Error', inline=True)
             await ctx.channel.send(embed=embeds)
         else:
-            embeds=discord.Embed()
-            embeds.colour = 0x725E7A
-            embeds.set_author(name="Work")
-            embeds.add_field(name="Status : ", value='Work', inline=True)
-            await ctx.channel.send(embed=embeds)
-            await ctx.author.send('Work')
+            Data = Data[str(ctx.guild.id)]
+            for i in Data:
 
+                embeds=discord.Embed()
+                embeds.colour = 0x725E7A
+                embeds.set_author(name=f"{i}")
+                embeds.add_field(name="Raid Damage : ", value=Data[i][0], inline=True)
+                await ctx.channel.send(embed=embeds)
+                await ctx.author.send(embed=embeds)
+
+    
     @commands.command(name="update", aliases=['upd']) 
     async def ocr(self, message):
         if len(message.message.attachments)>0:

@@ -2,6 +2,7 @@ import os
 from discord.ext import commands
 import logging
 from simple import enablePrint as allow, blockPrint as disable
+import json
 
 #----------Starter----------#
 logging.getLogger("asyncio").setLevel(logging.ERROR) #Used to block log from asyncio
@@ -22,6 +23,7 @@ bot.author_id = 650331064304271370  # Change to your discord id!!!
 async def on_ready():  # When the bot is ready
     allow();os.system('CLS');print('Welcome Back Guardian')
     print(bot.user)  # Prints the bot's username and identifier
+
 #----------------------------#
 
 #---Loads cogs extension---#
