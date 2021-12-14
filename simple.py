@@ -53,10 +53,8 @@ def ResOCRToJson(Server):
                 b=a.replace(' ','') ; b = b.upper()
             else:
                 a = a.replace(".","") #replace . to none cuz of 1.232.534 is illegal to tramform to int
-                print(b,a)
-                
-                user_raid[b]=(int(a),int(c)) #updating dictionary [0] = raid dmg, [1] = raid attempt
-    user_raid = dict(sorted(user_raid.items(), key=lambda item: item[1], reverse=True))
+                user_raid.update({f'{b}':(int(a),int(c))}) #updating dictionary [0] = raid dmg, [1] = raid attempt
+    user_raid = dict(sorted(user_raid.items(), key=lambda item: item[1][0], reverse=True))
     Data[Server] = user_raid
     with open("DB/raid.json","w") as data_json: #update the json
         json.dump(Data,data_json)

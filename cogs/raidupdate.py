@@ -4,6 +4,14 @@ import discord
 from discord.ext import commands
 import json
 from paddleocr import PaddleOCR, draw_ocr
+import random
+
+
+is_access = [822629972975812639,650331064304271370,768725675850072084]
+
+def verify(ctx):
+    return ctx.message.author.id in is_access
+
 
 def OCRImage(imageLink,ServerID):
         ocr = PaddleOCR(use_angle_cls=True, lang="en", ocr_version = 'PP-OCR') #define ocr
@@ -22,9 +30,13 @@ class OCRcommands(commands.Cog, name ="OCRs Commands"):
         self.bot = bot
 
     @commands.command(name="preview", aliases =['hi'])
+    @commands.check(verify)
     async def preview(self, ctx):
         with open("DB/raid.json","r") as f:
             Data = json.load(f)
+        with open("DB/avatar.json","r") as ava:
+            Avatar = json.load(ava)
+            
         if str(ctx.guild.id) not in Data:
             embeds=discord.Embed()
             embeds.colour = 0x725E7A
@@ -32,18 +44,21 @@ class OCRcommands(commands.Cog, name ="OCRs Commands"):
             embeds.add_field(name="Status : ", value='Error', inline=True)
             await ctx.channel.send(embed=embeds)
         else:
-            Data = Data[str(ctx.guild.id)]
+            Data,rank = Data[str(ctx.guild.id)],0
             for i in Data:
-
+                names,avatar = random.choice(list(Avatar.items()))
+                rank+=1
                 embeds=discord.Embed()
-                embeds.colour = 0x725E7A
+                embeds.colour = 0xe69fd2
                 embeds.set_author(name=f"{i}")
-                embeds.add_field(name="Raid Damage : ", value=Data[i][0], inline=True)
+                embeds.set_thumbnail(url=avatar)
+                embeds.add_field(name=f"Raid Damage : {'{:,}'.format(Data[i][0])}\nEntry : {Data[i][1]}/3",value='--------------------------', inline=True)
+                embeds.set_footer(text=f"Rank : {rank}/{len(Data)}")
                 await ctx.channel.send(embed=embeds)
-                await ctx.author.send(embed=embeds)
 
     
     @commands.command(name="update", aliases=['upd']) 
+    @commands.check(verify)
     async def ocr(self, message):
         if len(message.message.attachments)>0:
             embeds=discord.Embed()

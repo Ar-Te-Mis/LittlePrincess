@@ -9,6 +9,8 @@ logging.getLogger("asyncio").setLevel(logging.ERROR) #Used to block log from asy
 logging.getLogger("discord").setLevel(logging.ERROR) #Used to block log from discord
 #---------------------------#
 
+
+
 #--------Define Bot--------#
 bot = commands.Bot(
 	command_prefix="LP.",  # Change to desired prefix
