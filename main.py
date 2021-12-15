@@ -1,4 +1,5 @@
 import os
+from keep_alive import keep_alive
 from discord.ext import commands
 import logging
 from simple import enablePrint as allow
@@ -37,5 +38,6 @@ if __name__ == '__main__':  # Ensures this is the file being ran
 	for extension in extensions:
 		bot.load_extension(extension)  # Loads every extension.
 
+keep_alive()
 token = os.environ.get('TOKEN') 
 bot.run(token)  # Starts the bot
