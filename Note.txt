@@ -1,0 +1,7 @@
+raid JSON struct
+
+Dict index = server ID
+DIct[Server][User] = user
+[0] = raid dmg
+[1] = raid attempt
+
