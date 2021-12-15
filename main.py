@@ -3,7 +3,7 @@ from keep_alive import keep_alive
 from discord.ext import commands
 import logging
 from simple import enablePrint as allow
-
+#
 #----------Starter----------#
 logging.getLogger("asyncio").setLevel(logging.ERROR) #Used to block log from asyncio
 logging.getLogger("discord").setLevel(logging.ERROR) #Used to block log from discord
