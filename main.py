@@ -1,8 +1,7 @@
 import os
 from discord.ext import commands
 import logging
-from simple import enablePrint as allow, blockPrint as disable
-import json
+from simple import enablePrint as allow
 
 #----------Starter----------#
 logging.getLogger("asyncio").setLevel(logging.ERROR) #Used to block log from asyncio
