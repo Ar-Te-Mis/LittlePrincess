@@ -7,7 +7,7 @@ from paddleocr import PaddleOCR, draw_ocr
 import random
 
 
-is_access = [822629972975812639,650331064304271370,768725675850072084]
+is_access = [822629972975812639,650331064304271370,768725675850072084,439358710213640193]
 
 def verify(ctx):
     return ctx.message.author.id in is_access
@@ -29,6 +29,30 @@ class OCRcommands(commands.Cog, name ="OCRs Commands"):
     def __init__(self,bot):
         self.bot = bot
 
+    @commands.command(name="delete")
+    @commands.check(verify)
+    async def delete(self, ctx,*,name):
+        with open("DB/raid.json","r") as f:
+            Data = json.load(f)
+            
+            if str(ctx.guild.id) in Data:
+                User = Data[str(ctx.guild.id)]
+                name = name.upper()
+                if name in User:
+                    del User[name]
+                    embeds=discord.Embed()
+                    embeds.colour = 0x725E7A
+                    embeds.set_author(name=f"{name}'s data has been disabled")
+                    embeds.add_field(name="Status : ", value='Done', inline=True)
+                    await ctx.channel.send(embed=embeds)
+                    Data[str(ctx.guild.id)] = User
+                    with open("DB/raid.json","w") as data_json: #update the json
+                        json.dump(Data,data_json)
+                else:
+                    print('not found 2')
+            else: print('not found 1')
+
+    
     @commands.command(name="preview", aliases =['hi'])
     @commands.check(verify)
     async def preview(self, ctx):
