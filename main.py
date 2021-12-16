@@ -9,8 +9,6 @@ logging.getLogger("asyncio").setLevel(logging.ERROR) #Used to block log from asy
 logging.getLogger("discord").setLevel(logging.ERROR) #Used to block log from discord
 #---------------------------#
 
-
-
 #--------Define Bot--------#
 bot = commands.Bot(
 	command_prefix="LP.",  # Change to desired prefix
@@ -25,7 +23,6 @@ bot.author_id = 650331064304271370  # Change to your discord id!!!
 async def on_ready():  # When the bot is ready
     allow();os.system('CLS');print('Welcome Back Guardian')
     print(bot.user)  # Prints the bot's username and identifier
-
 #----------------------------#
 
 #---Loads cogs extension---#
